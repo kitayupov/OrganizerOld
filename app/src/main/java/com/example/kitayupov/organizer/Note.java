@@ -5,12 +5,6 @@ import android.os.Parcelable;
 import android.text.format.DateFormat;
 
 public class Note implements Parcelable {
-    private String body = "";
-    private String type = "";
-    private long date = System.currentTimeMillis();
-    private int rating = 0;
-    private boolean isDone = false;
-
     public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
         public Note createFromParcel(Parcel source) {
@@ -22,6 +16,11 @@ public class Note implements Parcelable {
             return new Note[size];
         }
     };
+    private String body = "";
+    private String type = "";
+    private long date = System.currentTimeMillis();
+    private int rating = 0;
+    private boolean isDone = false;
 
     public Note() {
 

@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?><!--todo set material design margin-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/activatedBackgroundIndicator"
-    android:descendantFocusability="blocksDescendants"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="8dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?android:attr/activatedBackgroundIndicator"
+              android:descendantFocusability="blocksDescendants"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="8dp">
 
     <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:checked="false" />
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:checked="false"/>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
         <TextView
-            android:id="@+id/bodyTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:hint="@string/hint_description"
-            android:textAppearance="@android:style/TextAppearance.Large" />
+                android:id="@+id/bodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:hint="@string/hint_description"
+                android:textAppearance="@android:style/TextAppearance.Large"/>
 
         <TextView
-            android:id="@+id/typeTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_type"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:id="@+id/typeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_type"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_date"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_date"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
     </LinearLayout>
 
     <RatingBar
-        android:id="@+id/itemRatingBar"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:isIndicator="true"
-        android:numStars="3"
-        android:stepSize="1" />
+            android:id="@+id/itemRatingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:isIndicator="true"
+            android:numStars="3"
+            android:stepSize="1"/>
 
 </LinearLayout>

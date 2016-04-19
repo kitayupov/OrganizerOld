@@ -59,7 +59,7 @@ public class NoteAdapter extends BaseAdapter {
         typeTextView.setText(item.getType());
         ratingBar.setRating(item.getRating());
         long date = item.getDate();
-        if (date > 0){
+        if (date > 0) {
             dateTextView.setText(DateFormat.format("dd.MM.yyyy", item.getDate()));
             if (date < System.currentTimeMillis()) {
                 dateTextView.setTextColor(Color.RED);

@@ -14,22 +14,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ActionMode;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,11 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String RATING = "rating";
     public static final String IS_DONE = "is_done";
     public static final String POSITION = "position";
-
-    private Context context = this;
-
-    private ArrayList<Note> noteArrayList;
     public static ArrayAdapter<String> typeAdapter;
+    private Context context = this;
+    private ArrayList<Note> noteArrayList;
     private ArrayList<String> typeArrayList;
     private NoteAdapter noteAdapter;
     private ListView noteListView;
@@ -56,6 +44,46 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionMode mActionMode;
     private Toolbar toolbar;
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        // Вызывается при создании контекстного режима
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+            Log.d(LOG_TAG, "CAB!!!");
+
+            // Заполняем меню
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu);
+            return true;
+        }
+
+        // Вызывается при каждом отображении контекстного режима. Всегда вызывается после onCreateActionMode, но
+        // может быть вызван несколько раз
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // возвращаем false, если ничего не сделано
+        }
+
+        // Вызывается при выборе действия контекстной панели
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.context_menu_delete:
+                    Log.d(LOG_TAG, "context delete");
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        // Вызывается при выходе из контекстного режима
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -396,45 +424,4 @@ public class MainActivity extends AppCompatActivity {
             db.insert(NoteDBHelper.TABLE_NAME, null, values);
         }
     }
-
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
-        // Вызывается при создании контекстного режима
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
-            Log.d(LOG_TAG, "CAB!!!");
-
-            // Заполняем меню
-            MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.context_menu, menu);
-            return true;
-        }
-
-        // Вызывается при каждом отображении контекстного режима. Всегда вызывается после onCreateActionMode, но
-        // может быть вызван несколько раз
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false; // возвращаем false, если ничего не сделано
-        }
-
-        // Вызывается при выборе действия контекстной панели
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.context_menu_delete:
-                    Log.d(LOG_TAG, "context delete");
-                    mode.finish(); // Action picked, so close the CAB
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        // Вызывается при выходе из контекстного режима
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mActionMode = null;
-        }
-    };
 }

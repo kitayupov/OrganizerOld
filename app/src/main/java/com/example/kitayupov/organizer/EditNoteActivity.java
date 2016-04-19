@@ -5,31 +5,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.RatingBar;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.*;
 
 public class EditNoteActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "EditNoteActivity";
     private EditText bodyEditText;
     private Spinner typeSpinner;
     private RatingBar ratingBar;
     private CalendarView calendarView;
     private ImageButton imageButton;
-
     private int position;
     private Note item;
-
-    private static final String LOG_TAG = "EditNoteActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_note_layout);
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             item = savedInstanceState.getParcelable(Note.class.getCanonicalName());
             Log.d(LOG_TAG, "onCreate received: " + item.toString());
         }
