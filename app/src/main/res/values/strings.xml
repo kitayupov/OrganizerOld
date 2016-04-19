@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Organizer</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_type">Type</string>
+    <string name="hint_date">Date</string>
+    <string-array name="note_types">
+        <item>Add New Type</item>
+    </string-array>
+</resources>
