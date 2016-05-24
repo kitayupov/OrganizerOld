@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -49,19 +50,18 @@ public class NoteAdapter extends BaseAdapter {
     private void fillView(View view, int position) {
         final Note item = getItem(position);
         if (item.getIsDone()) {
+            ((CheckBox) view.findViewById(R.id.checkBox)).setChecked(true);
             return;
         }
-        TextView bodyTextView = (TextView) view.findViewById(R.id.bodyTextView);
-        TextView typeTextView = (TextView) view.findViewById(R.id.typeTextView);
-        TextView dateTextView = (TextView) view.findViewById(R.id.dateTextView);
-        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.itemRatingBar);
-        bodyTextView.setText(item.getBody());
-        typeTextView.setText(item.getType());
-        ratingBar.setRating(item.getRating());
+        ((TextView) view.findViewById(R.id.bodyTextView)).setText(item.getBody());
+        ((TextView) view.findViewById(R.id.typeTextView)).setText(item.getType());
+        ((RatingBar) view.findViewById(R.id.itemRatingBar)).setRating(item.getRating());
         long date = item.getDate();
         if (date > 0) {
+            TextView dateTextView = (TextView) view.findViewById(R.id.dateTextView);
             dateTextView.setText(DateFormat.format("dd.MM.yyyy", item.getDate()));
-            if (date < System.currentTimeMillis()) {
+            long today = System.currentTimeMillis();
+            if (today > date) {
                 dateTextView.setTextColor(Color.RED);
             }
         }

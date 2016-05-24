@@ -141,7 +141,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.context_menu_delete:
+                    case R.id.contextual_menu_mark_done:
+                        markAsDone(list);
+                        list = new ArrayList<>();
+                        mode.finish();
+                        return true;
+                    case R.id.contextual_menu_delete:
                         deleteNote(list);
                         list = new ArrayList<>();
                         mode.finish();
@@ -239,10 +244,29 @@ public class MainActivity extends AppCompatActivity {
         noteArrayList.remove(item);
     }
 
-    private void markAsDone(int position) {
-        noteArrayList.get(position).setIsDone(true);
+    private void markAsDone(ArrayList<Note> list) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        for (Note item : list) {
+
+            ContentValues values = new ContentValues();
+            values.put(BODY, item.getBody());
+            values.put(TYPE, item.getType());
+            values.put(DATE, item.getDate());
+            values.put(RATING, item.getRating());
+            values.put(IS_DONE, true);
+
+            String whereClause = BODY + "=? and " + TYPE + "=? and " + DATE + "=? and " +
+                    RATING + "=? and " + IS_DONE + "=?";
+            String[] whereArgs = new String[]{
+                    item.getBody(), item.getType(), String.valueOf(item.getDate()),
+                    String.valueOf(item.getRating()), String.valueOf(item.getIsDone() ? 1 : 0)};
+
+            db.update(NoteDBHelper.TABLE_NAME,values, whereClause, whereArgs);
+            noteArrayList.remove(item);
+
+            Log.i(LOG_TAG, "marked as done: " + item.toString());
+        }
         mAdapter.notifyDataSetChanged();
-        Log.i(LOG_TAG, "marked as done: " + noteArrayList.get(position).toString());
     }
 
     private void editNote(int position) {
