@@ -26,21 +26,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:hint="@string/hint_description"
                 android:textAppearance="@android:style/TextAppearance.Large"/>
 
         <TextView
                 android:id="@+id/typeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_type"
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_date"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
     </LinearLayout>
 

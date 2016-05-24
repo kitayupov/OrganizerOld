@@ -4,6 +4,7 @@
     <string name="hint_description">Description</string>
     <string name="hint_type">Type</string>
     <string name="hint_date">Date</string>
+    <string name="message_empty_field">Empty field</string>
     <string-array name="note_types">
         <item>Add New Type</item>
     </string-array>
