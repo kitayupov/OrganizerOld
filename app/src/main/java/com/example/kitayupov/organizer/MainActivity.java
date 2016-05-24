@@ -23,6 +23,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -261,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                     item.getBody(), item.getType(), String.valueOf(item.getDate()),
                     String.valueOf(item.getRating()), String.valueOf(item.getIsDone() ? 1 : 0)};
 
-            db.update(NoteDBHelper.TABLE_NAME,values, whereClause, whereArgs);
+            db.update(NoteDBHelper.TABLE_NAME, values, whereClause, whereArgs);
             noteArrayList.remove(item);
 
             Log.i(LOG_TAG, "marked as done: " + item.toString());
@@ -291,6 +294,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_sort_name:
+                Collections.sort(noteArrayList, new Comparator<Note>() {
+                    @Override
+                    public int compare(Note n1, Note n2) {
+                        return n1.getBody().compareTo(n2.getBody());
+                    }
+
+                });
+                mAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.action_sort_date:
+                Collections.sort(noteArrayList, new Comparator<Note>() {
+                    @Override
+                    public int compare(Note n1, Note n2) {
+                        Date d1 = new Date(n1.getDate());
+                        Date d2 = new Date(n2.getDate());
+                        return d1.compareTo(d2);
+                    }
+
+                });
+                mAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.action_sort_rating:
+                Collections.sort(noteArrayList, new Comparator<Note>() {
+                    @Override
+                    public int compare(Note n1, Note n2) {
+                        return n2.getRating() - n1.getRating();
+                    }
+
+                });
+                mAdapter.notifyDataSetChanged();
+                return true;
             case R.id.action_settings:
                 return true;
             default:

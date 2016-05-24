@@ -54,7 +54,10 @@ public class NoteAdapter extends BaseAdapter {
             return;
         }
         ((TextView) view.findViewById(R.id.bodyTextView)).setText(item.getBody());
-        ((TextView) view.findViewById(R.id.typeTextView)).setText(item.getType());
+        String type = item.getType();
+        TextView typeTextView = ((TextView) view.findViewById(R.id.typeTextView));
+        typeTextView.setText(type);
+        typeTextView.setVisibility("".equals(type) ? View.GONE : View.VISIBLE);
         ((RatingBar) view.findViewById(R.id.itemRatingBar)).setRating(item.getRating());
         long date = item.getDate();
         if (date > 0) {
@@ -63,6 +66,8 @@ public class NoteAdapter extends BaseAdapter {
             long today = System.currentTimeMillis();
             if (today > date) {
                 dateTextView.setTextColor(Color.RED);
+            } else {
+                dateTextView.setTextColor(Color.DKGRAY);
             }
         }
     }

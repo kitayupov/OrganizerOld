@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Органайзер</string>
+    <string name="action_sort_by_rating">Сортировка по важности</string>
+    <string name="action_sort_by_name">Сортировка по имени</string>
+    <string name="action_sort_by_date">Сортировка по дате</string>
+    <string name="action_settings">Настройки</string>
+    <string name="hint_date">Дата</string>
+    <string name="hint_description">Описание</string>
+    <string name="hint_type">Тип</string>
+    <string name="message_empty_field">Пустое поле</string>
+</resources>
