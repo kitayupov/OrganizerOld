@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         context = this;
 
+        initFab();
+        initControls();
+    }
+
+    private void initFab() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +74,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        initialize();
     }
 
     //Initialize lists and adapter
-    private void initialize() {
+    private void initControls() {
         noteArrayList = new ArrayList<>();
         typeArrayList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.note_types)));
         dbHelper = new NoteDBHelper(context);
@@ -272,13 +276,6 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void editNote(int position) {
-        Intent intent = new Intent(context, ActivityEditor.class);
-        intent.putExtra(Note.class.getCanonicalName(), noteArrayList.get(position));
-        intent.putExtra(POSITION, position);
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -295,41 +292,58 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sort_name:
-                Collections.sort(noteArrayList, new Comparator<Note>() {
-                    @Override
-                    public int compare(Note n1, Note n2) {
-                        return n1.getBody().compareTo(n2.getBody());
-                    }
-
-                });
-                mAdapter.notifyDataSetChanged();
+                sort(Settings.SortType.NAME);
                 return true;
             case R.id.action_sort_date:
-                Collections.sort(noteArrayList, new Comparator<Note>() {
-                    @Override
-                    public int compare(Note n1, Note n2) {
-                        Date d1 = new Date(n1.getDate());
-                        Date d2 = new Date(n2.getDate());
-                        return d1.compareTo(d2);
-                    }
-
-                });
-                mAdapter.notifyDataSetChanged();
+                sort(Settings.SortType.DATE);
                 return true;
             case R.id.action_sort_rating:
-                Collections.sort(noteArrayList, new Comparator<Note>() {
-                    @Override
-                    public int compare(Note n1, Note n2) {
-                        return n2.getRating() - n1.getRating();
-                    }
-
-                });
-                mAdapter.notifyDataSetChanged();
+                sort(Settings.SortType.RATING);
                 return true;
             case R.id.action_settings:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Settings.loadSettings(context);
+        sort(Settings.sortType);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Settings.saveSettings(context);
+    }
+
+    private void sort(final Settings.SortType type) {
+        Collections.sort(noteArrayList, new Comparator<Note>() {
+            @Override
+            public int compare(Note n1, Note n2) {
+                int result = 0;
+                switch (type) {
+                    case NAME:
+                        result = n1.getBody().compareTo(n2.getBody());
+                        break;
+                    case DATE:
+                        Date d1 = new Date(n1.getDate());
+                        Date d2 = new Date(n2.getDate());
+                        result = d1.compareTo(d2);
+                        break;
+                    case RATING:
+                        result = n2.getRating() - n1.getRating();
+                        break;
+                    default:
+                }
+                return result;
+            }
+
+        });
+        Settings.sortType = type;
+        mAdapter.notifyDataSetChanged();
     }
 }

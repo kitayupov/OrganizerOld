@@ -4,7 +4,7 @@
     <item
         android:id="@+id/contextual_menu_mark_done"
         android:icon="@mipmap/ic_check_all"
-        android:title="Mark as done"
+        android:title="@string/action_mark_as_done"
         app:showAsAction="ifRoom" />
     <!--<item
         android:id="@+id/context_menu_edit"
@@ -14,6 +14,6 @@
     <item
         android:id="@+id/contextual_menu_delete"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="Delete"
+        android:title="@string/action_delete"
         app:showAsAction="ifRoom" />
 </menu>

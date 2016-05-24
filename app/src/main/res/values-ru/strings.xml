@@ -9,4 +9,7 @@
     <string name="hint_description">Описание</string>
     <string name="hint_type">Тип</string>
     <string name="message_empty_field">Пустое поле</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_mark_as_done">Отметить выполненным</string>
 </resources>
